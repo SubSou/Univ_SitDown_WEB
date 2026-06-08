@@ -1,0 +1,99 @@
+.dashboard-content {
+  padding: 28px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  margin-bottom: 28px;
+}
+
+.stat-card {
+  height: 120px;
+  background: white;
+  border: 1px solid #e5eaf3;
+  border-radius: 10px;
+  padding: 22px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.stat-card p {
+  margin: 0 0 14px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #374151;
+}
+
+.stat-card h2 {
+  margin: 0;
+  font-size: 30px;
+  color: #111827;
+}
+
+.dashboard-content .content-box {
+  margin: 0;
+}
+
+.box-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.box-header h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.box-header button {
+  border: none;
+  background: transparent;
+  color: #104fcf;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* 태블릿 */
+@media (max-width: 1024px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 모바일 */
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 16px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .stat-card {
+    height: auto;
+    padding: 18px;
+  }
+
+  .stat-card h2 {
+    font-size: 24px;
+  }
+
+  .dashboard-content .content-box {
+    margin: 0;
+  }
+}
+
+/* 작은 모바일 */
+@media (max-width: 480px) {
+  .dashboard-content {
+    padding: 12px;
+  }
+
+  .box-header h3 {
+    font-size: 16px;
+  }
+}
