@@ -17,8 +17,6 @@ export default function MemberToolbar({ keyword, onKeywordChange }: Props) {
           placeholder="아이디, 이름, 이메일 검색"
         />
       </div>
-
-      <button className="member-add-button">+ 회원 추가</button>
     </div>
   );
 }

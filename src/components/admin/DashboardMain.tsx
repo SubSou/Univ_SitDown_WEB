@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getAdminDashboard } from "../../api/adminApi";
 
 type DashboardData = {
@@ -7,6 +8,8 @@ type DashboardData = {
 };
 
 function DashboardMain() {
+  const navigate = useNavigate();
+
   const [dashboard, setDashboard] = useState<DashboardData>({
     spaceCount: 0,
     activeReservationCount: 0,
@@ -22,15 +25,16 @@ function DashboardMain() {
         const dashboardResult = await getAdminDashboard();
         setDashboard(dashboardResult);
       } catch (error) {
-        console.error(error);
-        alert("대시보드 정보를 불러오지 못했습니다.");
+        localStorage.removeItem("accessToken");
+        alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+        navigate("/");
       } finally {
         setLoading(false);
       }
     };
 
     loadDashboardData();
-  }, []);
+  }, [navigate]);
 
   if (loading) {
     return <section className="dashboard-content">로딩 중...</section>;

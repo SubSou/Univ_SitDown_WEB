@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   getAdminUsers,
   getAdminUserDetail,
@@ -13,6 +14,8 @@ import MemberPagination from "./member/MemberPagination";
 import MemberEditModal from "./member/MemberEditModal";
 
 export default function MemberManagement() {
+  const navigate = useNavigate();
+
   const [memberList, setMemberList] = useState<AdminUser[]>([]);
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(0);
@@ -21,6 +24,12 @@ export default function MemberManagement() {
 
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<AdminUser | null>(null);
+
+  const goLoginPage = () => {
+    localStorage.removeItem("accessToken");
+    alert("로그인이 만료되었습니다. 다시 로그인해주세요.");
+    navigate("/");
+  };
 
   useEffect(() => {
     let ignore = false;
@@ -38,10 +47,9 @@ export default function MemberManagement() {
           setTotalPages(response.totalPages);
         }
       } catch (e) {
-        console.error("회원 목록 조회 에러:", e);
-
         if (!ignore) {
-          alert("회원 목록 조회 실패");
+          console.error(e);
+          goLoginPage();
         }
       } finally {
         if (!ignore) {
@@ -64,7 +72,7 @@ export default function MemberManagement() {
       setTotalPages(response.totalPages);
     } catch (e) {
       console.error("회원 목록 조회 에러:", e);
-      alert("회원 목록 조회 실패");
+      goLoginPage();
     }
   };
 
@@ -80,7 +88,7 @@ export default function MemberManagement() {
       setIsEditModalOpen(true);
     } catch (e) {
       console.error(e);
-      alert("회원 상세 조회 실패");
+      goLoginPage();
     }
   };
 
@@ -104,13 +112,12 @@ export default function MemberManagement() {
       });
 
       alert("회원 정보가 수정되었습니다.");
-
       closeEditModal();
 
       await loadMembers();
     } catch (e) {
       console.error(e);
-      alert("회원 정보 수정 실패");
+      goLoginPage();
     }
   };
 
@@ -127,7 +134,7 @@ export default function MemberManagement() {
       await loadMembers();
     } catch (e) {
       console.error(e);
-      alert("회원 삭제 실패");
+      goLoginPage();
     }
   };
 
